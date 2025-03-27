@@ -7,6 +7,10 @@ class GameManager
 
     private string _title;
 
+    private List<GameObject> _gameObjects = new List<GameObject>(); 
+
+    Random _random = new Random();
+
     public GameManager()
     {
         _title = "CSE 210 Game";
@@ -22,7 +26,7 @@ class GameManager
         Raylib.InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, _title);
         // If using sound, un-comment the lines to init and close the audio device
         // Raylib.InitAudioDevice();
-
+    
         InitializeGame();
 
         while (!Raylib.WindowShouldClose())
@@ -47,7 +51,11 @@ class GameManager
     /// </summary>
     private void InitializeGame()
     {
+        Player p = new Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50, 10);
+        _gameObjects.Add(p);
 
+        Points points = new Points(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 580, 10);
+        _gameObjects.Add(points);
     }
 
     /// <summary>
@@ -63,7 +71,12 @@ class GameManager
     /// </summary>
     private void ProcessActions()
     {
+        foreach (GameObject items in _gameObjects)
+        {
+            items.ProcessActions();
+        }
 
+        
     }
 
     /// <summary>
@@ -71,6 +84,9 @@ class GameManager
     /// </summary>
     private void DrawElements()
     {
-
+        foreach (GameObject item in _gameObjects)
+        {
+            item.Draw();
+        }
     }
 }
