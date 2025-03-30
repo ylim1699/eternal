@@ -1,7 +1,14 @@
 using Raylib_cs;
 
-public class Points : FallingObject {
+public class Points : GameObject {
     private List<int> _points = [1, 2, 3, 5];
+
+    private int _pointValue;
+
+    public int GetPoint()
+    {
+        return _pointValue;
+    }
 
     public Points(double x, double y, double velocityY) : base(x, y, velocityY)
     {}
@@ -16,7 +23,7 @@ public class Points : FallingObject {
         _y += _velocity;
     }
     
-    public override void CollideWith()
+    public override void CollideWith(GameObject Other)
     {
         throw new NotImplementedException();
     }

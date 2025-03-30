@@ -1,4 +1,4 @@
-public class Obstacle : FallingObject {
+public class Obstacle : GameObject {
     public Obstacle(double x, double y, double velocityY) : base(x, y, velocityY)
     {
 
@@ -14,7 +14,7 @@ public class Obstacle : FallingObject {
         _y += _velocity;
     }
     
-    public override void CollideWith()
+    public override void CollideWith(GameObject other)
     {
         throw new NotImplementedException();
     }

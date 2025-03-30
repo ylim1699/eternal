@@ -4,6 +4,8 @@ public abstract class GameObject {
     protected double _x;
     protected double _y;
     protected double _velocity;
+    protected double _width;
+    protected double _height;
 
      public GameObject(double x, double y, double velocity)
     {
@@ -16,8 +18,34 @@ public abstract class GameObject {
 
     public abstract void ProcessActions();
 
-    public void CollideWith() 
+    public abstract void CollideWith(GameObject other);
+
+    public virtual double GetLeftEdge()
     {
-        bool CheckCollisionCircleRec(Vector2 center, float radius, Rectangle rec);  
+        return _x;
     }
+
+    public virtual double GetRightEdge()
+    {
+        return _x + _width;
+    }
+
+    public virtual double GetTopEdge()
+    {
+        return _y;
+    }
+
+    public virtual double GetBottomEdge()
+    {
+        return _y + _height;
+    }
+
+    // if (GetLeftEdge() < 0)
+    // {
+    //     _x = 0;
+    // }
+    // else if (GetRightEdge() > GameManager.SCREEN_WIDTH)
+    // {
+    //     _x = GameManager.SCREEN_WIDTH;
+    // }
 }
