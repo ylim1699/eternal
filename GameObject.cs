@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Raylib_cs;
 
 public abstract class GameObject {
@@ -40,7 +41,7 @@ public abstract class GameObject {
         return _y + _height;
     }
 
-    // if (GetLeftEdge() < 0)
+    // if (GetLeftEdge() < 0) game manager
     // {
     //     _x = 0;
     // }
@@ -48,4 +49,6 @@ public abstract class GameObject {
     // {
     //     _x = GameManager.SCREEN_WIDTH;
     // }
+
+    // collide function here
 }

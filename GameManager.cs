@@ -76,7 +76,17 @@ class GameManager
             items.ProcessActions();
         }
 
-        
+        // if (GetLeftEdge() < 0) game manager
+        // {
+        //     _x = 0;
+        // }
+        // else if (GetRightEdge() > GameManager.SCREEN_WIDTH)
+        // {
+        //     _x = GameManager.SCREEN_WIDTH;
+        // }
+
+        SpawnItems();
+        CleanItems();
     }
 
     /// <summary>
@@ -89,4 +99,16 @@ class GameManager
             item.Draw();
         }
     }
+
+    private void SpawnItems()
+    {
+        Random random = new Random();
+    }
+
+    private void CleanItems()
+    {
+        
+    }
+
+
 }
