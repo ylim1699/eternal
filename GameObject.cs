@@ -7,7 +7,7 @@ public abstract class GameObject {
     protected double _velocity;
     protected double _width;
     protected double _height;
-
+    protected bool _life;
      public GameObject(double x, double y, double velocity)
     {
         _x = x;
@@ -15,6 +15,10 @@ public abstract class GameObject {
         _velocity = velocity;
     }
 
+    public bool IsAlive()
+    {
+        return _life;
+    }
     public abstract void Draw(); 
 
     public abstract void ProcessActions();

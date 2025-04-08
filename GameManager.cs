@@ -1,10 +1,13 @@
+using System.Numerics;
 using Raylib_cs;
 
 class GameManager
 {
     public const int SCREEN_WIDTH = 800;
     public const int SCREEN_HEIGHT = 600;
-
+    public const double POINT_SPAWN_RATE = 0.02;
+    public const double OBSTACLE_SPAWN_RATE = 0.02;
+    public const float v1 = 20;
     private string _title;
 
     private List<GameObject> _gameObjects = new List<GameObject>(); 
@@ -51,11 +54,18 @@ class GameManager
     /// </summary>
     private void InitializeGame()
     {
-        Player p = new Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50, 10);
-        _gameObjects.Add(p);
+        Random random = new Random();
+        int x1 = random.Next(0, SCREEN_WIDTH);
+        int x2 = random.Next(0, SCREEN_WIDTH);
 
-        Points points = new Points(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 580, 10);
+        Player player = new Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50, 10);
+        _gameObjects.Add(player);
+
+        Point points = new Point(x1, 0, 10);
         _gameObjects.Add(points);
+
+        Obstacle obstacles = new Obstacle(x2, 0, 10);
+        _gameObjects.Add(obstacles);
     }
 
     /// <summary>
@@ -86,8 +96,23 @@ class GameManager
         // }
 
         SpawnItems();
-        CleanItems();
+        // CleanItems();
     }
+
+    public bool IsCollision(GameObject first, GameObject second)
+    {   
+        bool isTouching = false;
+
+        if (first.GetRightEdge() > second.GetLeftEdge()
+            && first.GetLeftEdge() < second.GetRightEdge()
+            && first.GetTopEdge() < second.GetBottomEdge()
+            && first.GetBottomEdge() > second.GetTopEdge())
+            {
+                isTouching = true;
+            }
+        return isTouching;
+    }
+
 
     /// <summary>
     /// Draws all elements on the screen.
@@ -103,11 +128,29 @@ class GameManager
     private void SpawnItems()
     {
         Random random = new Random();
+
+        double pointNumber = random.NextDouble();
+
+        if (pointNumber < POINT_SPAWN_RATE)
+        {
+            int x = random.Next(0, SCREEN_WIDTH);
+            Point point = new Point(x, 0, 10);
+            _gameObjects.Add(point);
+        }
+
+        double obstacleNumber = random.NextDouble();
+
+        if (obstacleNumber < OBSTACLE_SPAWN_RATE)
+        {
+            int x = random.Next(0, SCREEN_WIDTH);
+            Obstacle obstacle = new Obstacle(x, 0, 10);
+            _gameObjects.Add(obstacle);
+        }
     }
 
     private void CleanItems()
     {
-        
+        _gameObjects.RemoveAll(e => !e.IsAlive());            
     }
 
 

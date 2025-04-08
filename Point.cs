@@ -1,6 +1,6 @@
 using Raylib_cs;
 
-public class Points : GameObject {
+public class Point : GameObject {
     private List<int> _points = [1, 2, 3, 5];
 
     private int _pointValue;
@@ -10,7 +10,7 @@ public class Points : GameObject {
         return _pointValue;
     }
 
-    public Points(double x, double y, double velocityY) : base(x, y, velocityY)
+    public Point(double x, double y, double velocityY) : base(x, y, velocityY)
     {}
 
     public override void Draw()

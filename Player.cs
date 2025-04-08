@@ -25,9 +25,9 @@ private int _score = 0;
 
     public override void CollideWith(GameObject other)
     {
-        if (other is Points)
+        if (other is Point)
         {
-            Points point = (Points)other;
+            Point point = (Point)other;
             _score += point.GetPoint(); 
         }
     }
