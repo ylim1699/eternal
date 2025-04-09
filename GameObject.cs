@@ -7,7 +7,7 @@ public abstract class GameObject {
     protected double _velocity;
     protected double _width;
     protected double _height;
-    protected bool _life;
+    protected bool _life = true;
      public GameObject(double x, double y, double velocity)
     {
         _x = x;
@@ -15,10 +15,15 @@ public abstract class GameObject {
         _velocity = velocity;
     }
 
-    public bool IsAlive()
+    public GameObject(double x, double y, double velocity, double width, double height)
     {
-        return _life;
+        _x = x;
+        _y = y;
+        _velocity = velocity;
+        _width = width;
+        _height = height;
     }
+
     public abstract void Draw(); 
 
     public abstract void ProcessActions();
@@ -45,18 +50,16 @@ public abstract class GameObject {
         return _y + _height;
     }
 
+    public bool IsAlive()
+    {
+        return _life;
+    }
+    
     public void Kill()
     {
-        
+        _life = false;
     }
-    // if (GetLeftEdge() < 0) game manager
-    // {
-    //     _x = 0;
-    // }
-    // else if (GetRightEdge() > GameManager.SCREEN_WIDTH)
-    // {
-    //     _x = GameManager.SCREEN_WIDTH;
-    // }
 
-    // collide function here
+    public virtual void CollideWith()
+    {}
 }

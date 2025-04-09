@@ -8,6 +8,9 @@ class GameManager
     public const double POINT_SPAWN_RATE = 0.02;
     public const double OBSTACLE_SPAWN_RATE = 0.02;
     private string _title;
+    public const bool GAME_OVER = false;
+
+    
 
     private List<GameObject> _gameObjects = new List<GameObject>(); 
 
@@ -33,8 +36,11 @@ class GameManager
 
         while (!Raylib.WindowShouldClose())
         {
+            if (!GAME_OVER)
+            {
             HandleInput();
             ProcessActions();
+            }
 
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
@@ -57,13 +63,13 @@ class GameManager
         int x1 = random.Next(0, SCREEN_WIDTH);
         int x2 = random.Next(0, SCREEN_WIDTH);
 
-        Player player = new Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50, 10);
+        Player player = new Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 50, 10, 35, 10);
         _gameObjects.Add(player);
 
-        Point points = new Point(x1, 0, 10);
+        Point points = new Point(x1, 0, 10, 30, 30);
         _gameObjects.Add(points);
 
-        Obstacle obstacles = new Obstacle(x2, 0, 10);
+        Obstacle obstacles = new Obstacle(x2, 0, 10, 20, 20);
         _gameObjects.Add(obstacles);
     }
 
@@ -85,17 +91,24 @@ class GameManager
             items.ProcessActions();
         }
 
-        // if (GetLeftEdge() < 0) game manager
-        // {
-        //     _x = 0;
-        // }
-        // else if (GetRightEdge() > GameManager.SCREEN_WIDTH)
-        // {
-        //     _x = GameManager.SCREEN_WIDTH;
-        // }
+        for (int i =0; i < _gameObjects.Count; i++)
+        {
+            for (int j = i +1; j < _gameObjects.Count; j++)
+            {
+                GameObject first = _gameObjects[i];
+                GameObject second = _gameObjects[j];
+
+                if (IsCollision(first, second))
+                {
+                    first.CollideWith(second);
+                }
+            }
+        }
+
+       
 
         SpawnItems();
-        // CleanItems();
+        CleanItems();
     }
 
     public bool IsCollision(GameObject first, GameObject second)
@@ -133,7 +146,7 @@ class GameManager
         if (pointNumber < POINT_SPAWN_RATE)
         {
             int x = random.Next(0, SCREEN_WIDTH);
-            Point point = new Point(x, 0, 10);
+            Point point = new Point(x, 0, 10, 30, 30);
             _gameObjects.Add(point);
         }
 
@@ -142,7 +155,7 @@ class GameManager
         if (obstacleNumber < OBSTACLE_SPAWN_RATE)
         {
             int x = random.Next(0, SCREEN_WIDTH);
-            Obstacle obstacle = new Obstacle(x, 0, 10);
+            Obstacle obstacle = new Obstacle(x, 0, 10, 20, 20);
             _gameObjects.Add(obstacle);
         }
     }
@@ -151,6 +164,4 @@ class GameManager
     {
         _gameObjects.RemoveAll(e => !e.IsAlive());            
     }
-
-
 }
