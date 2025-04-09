@@ -45,6 +45,10 @@ public abstract class GameObject {
         return _y + _height;
     }
 
+    public void Kill()
+    {
+        
+    }
     // if (GetLeftEdge() < 0) game manager
     // {
     //     _x = 0;

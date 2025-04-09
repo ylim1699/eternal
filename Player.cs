@@ -21,6 +21,15 @@ private int _score = 0;
         {
             _x += _velocity;
         }
+        
+        if (GetLeftEdge() < 0) 
+        {
+            _x = 0;
+        }
+        else if (GetRightEdge() > GameManager.SCREEN_WIDTH)
+        {
+            _x = GameManager.SCREEN_WIDTH - _width;
+        }
     }
 
     public override void CollideWith(GameObject other)
@@ -29,6 +38,13 @@ private int _score = 0;
         {
             Point point = (Point)other;
             _score += point.GetPoint(); 
+            point.Kill();
+        }
+        else if (other is Obstacle)
+        {
+            Obstacle obstacle = (Obstacle)other;
+            _life -= 1;
+            obstacle.Kill();
         }
     }
 

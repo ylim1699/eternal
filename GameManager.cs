@@ -7,7 +7,6 @@ class GameManager
     public const int SCREEN_HEIGHT = 600;
     public const double POINT_SPAWN_RATE = 0.02;
     public const double OBSTACLE_SPAWN_RATE = 0.02;
-    public const float v1 = 20;
     private string _title;
 
     private List<GameObject> _gameObjects = new List<GameObject>(); 
