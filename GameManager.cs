@@ -8,9 +8,6 @@ class GameManager
     public const double POINT_SPAWN_RATE = 0.02;
     public const double OBSTACLE_SPAWN_RATE = 0.02;
     private string _title;
-    public const bool GAME_OVER = false;
-
-    
 
     private List<GameObject> _gameObjects = new List<GameObject>(); 
 
@@ -36,12 +33,9 @@ class GameManager
 
         while (!Raylib.WindowShouldClose())
         {
-            if (!GAME_OVER)
-            {
             HandleInput();
             ProcessActions();
-            }
-
+    
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
 
@@ -104,8 +98,6 @@ class GameManager
                 }
             }
         }
-
-       
 
         SpawnItems();
         CleanItems();

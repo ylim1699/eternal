@@ -7,7 +7,7 @@ public class Point : GameObject {
     public Point(double x, double y, double velocityY, double width, double height) : base(x, y, velocityY, width, height)
     {
         Random _random = new Random();
-        _pointValue = _random.Next(1,5);
+        _pointValue = _random.Next(5,15);
     }
     public int GetPoint()
     {
